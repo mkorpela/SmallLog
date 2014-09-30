@@ -7,7 +7,7 @@ class SmallLog(object):
         self._log_name = log_name
 
     def start_suite(self, name, attributes):
-        pass
+        print name, attributes
 
     def end_suite(self, name, attributes):
         pass
@@ -30,3 +30,21 @@ class SmallLog(object):
     def close(self):
         pass
 
+
+class SmallLogResult(object):
+
+    def __init__(self, log_name='output.db'):
+        self._log_name = log_name
+
+    @property
+    def suite(self):
+        suite = lambda:0
+        suite.name = 'Test'
+        return suite
+
+
+if __name__ == '__main__':
+    from robot.api import ExecutionResult
+    expected = ExecutionResult('output.xml')
+    actual = SmallLogResult('output.db')
+    assert expected.suite.name == actual.suite.name
